@@ -10,6 +10,7 @@
 
 .popup {
   font-family: 'Inter', Arial, sans-serif;
+  cursor: pointer;
   display: none;
   align-items: center;
   justify-content: center;
