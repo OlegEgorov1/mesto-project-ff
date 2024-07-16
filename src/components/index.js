@@ -3,7 +3,6 @@ import {createCard, deleteCard, likeCard} from './card.js';
 import {openPopup, closePopup, closePopupOverlay} from './modal.js';
 import '../pages/index.css';
 
-
 import add_icon from '../images/add-icon.svg'
 import avatar from '../images/avatar.jpg'
 import card_1 from '../images/card_1.jpg'
