@@ -76,7 +76,7 @@ function addNewCard (event) {
     cardContainer.prepend(newCardElement);
     formNewPlace.reset();
     closePopup(popupNewCard);
-}
+};
 
 // Функция открытия модального окна картинок
 function OpenImagePopup(event) {
