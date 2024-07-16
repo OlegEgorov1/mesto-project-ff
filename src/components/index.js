@@ -1,6 +1,6 @@
 import {initialCards} from './cards.js';
 import {createCard, deleteCard, likeCard} from './card.js';
-import {openPopup, closePopup, closePopupEsc, closePopupOverlay} from './modal.js';
+import {openPopup, closePopup, closePopupOverlay} from './modal.js';
 import '../pages/index.css';
 // import 'core-js/core/array';
 
@@ -15,7 +15,6 @@ import edit_icon from '../images/edit-icon.svg'
 import like_active from '../images/like-active.svg'
 import like_inactive from '../images/like-inactive.svg'
 import logo from '../images/logo.svg'
-
 
 const images = [
 	// меняем исходные пути на переменные
@@ -37,10 +36,10 @@ const images = [
 const cardContainer = document.querySelector('.places__list');
 
  // Определяем переменные
-const EditButton = document.querySelector('.profile__edit-button');
+const editButton = document.querySelector('.profile__edit-button');
 const popupEdit = document.querySelector('.popup_type_edit');
 const popups = document.querySelectorAll('.popup');
-const popupClose = document.querySelectorAll('.popup__close');
+const closePopups = document.querySelectorAll('.popup__close');
 const addButton = document.querySelector('.profile__add-button');
 const popupNewCard = document.querySelector('.popup_type_new-card');
 const popupType = document.querySelector('.popup_type_image');
@@ -50,7 +49,7 @@ const profileTitle = document.querySelector('.profile__title');
 const profileDescription = document.querySelector('.profile__description');
 const nameInput = document.querySelector('.popup__input_type_name');
 const descriptionInput = document.querySelector('.popup__input_type_description');
-const formProfile = document.querySelector('.popup__form');
+const formProfile = document.forms['edit-profile'];
 const formNewPlace = document.forms['new-place'];
 
 // Добавление начальных карточек
@@ -60,7 +59,7 @@ initialCards.forEach(function(elm){
 })
 
 // Функция для отправки формы(Редактирование профиля)
-function handleFormSubmit (event) {
+function submitForm (event) {
 	event.preventDefault();
 	profileTitle.textContent = nameInput.value;
 	profileDescription.textContent = descriptionInput.value;
@@ -79,8 +78,18 @@ function addNewCard (event) {
     closePopup(popupNewCard);
 }
 
+// Функция открытия модального окна картинок
+function OpenImagePopup(event) {
+	if (event.target.tagName === 'IMG') {
+		openPopup(popupType)
+		popupImage.src = event.target.src;
+		popupImage.alt = event.target.alt;
+		popupCaption.textContent = event.target.alt;
+	}
+}
+
 // Вешаем обработчик событий для открытия первого модального окна 
-EditButton.addEventListener('click', function(){
+editButton.addEventListener('click', function(){
     openPopup(popupEdit);
     nameInput.value = profileTitle.textContent;
 	descriptionInput.value = profileDescription.textContent;
@@ -91,17 +100,11 @@ addButton.addEventListener('click', function(){
     openPopup(popupNewCard);
 })
 
-// Вешаем обработчик событий для открытия третьего модального окна 
-cardContainer.addEventListener('click', function(event){
-    if(event.target.tagName === 'IMG'){
-        openPopup(popupType);
-        popupImage.src = event.target.src;
-        popupCaption.textContent = event.target.alt;
-    } 
-})
+// Вешаем обработчик событий для увеличение картинок третьего модального окна 
+cardContainer.addEventListener('click', OpenImagePopup);
 
 // Вешаем обработчик клика для закрытия модальных окон
-popupClose.forEach(function(button){
+closePopups.forEach(function(button){
     button.addEventListener('click', function(){
         const popup = button.closest('.popup');
         closePopup(popup);
@@ -116,15 +119,7 @@ popups.forEach(function(popup){
 })
 
 // Вешаем обработчик событий для редактирования профиля 
-formProfile.addEventListener('submit', handleFormSubmit);
+formProfile.addEventListener('submit', submitForm);
    
 // Вешаем обработчик клика для добавления новых карточек
 formNewPlace.addEventListener('submit', addNewCard);
-
-
-
-
-
-
-
-

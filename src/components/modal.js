@@ -13,9 +13,9 @@ export function closePopup(element) {
 }
 
 // Функция закрытия модальных окон через Escape
-export function closePopupEsc(event) {
+function closePopupEsc(event) {
 	if (event.key === 'Escape') {
-		const popups = document.querySelectorAll('.popup');
+		const popups = document.querySelectorAll('.popup_is-opened')
 		popups.forEach(function (popup) {
 			closePopup(popup)
 		})
