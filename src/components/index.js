@@ -2,7 +2,7 @@ import {initialCards} from './cards.js';
 import {createCard, deleteCard, likeCard} from './card.js';
 import {openPopup, closePopup, closePopupOverlay} from './modal.js';
 import '../pages/index.css';
-// import 'core-js/core/array';
+
 
 import add_icon from '../images/add-icon.svg'
 import avatar from '../images/avatar.jpg'
@@ -70,7 +70,7 @@ function submitForm (event) {
 function addNewCard (event) {
     event.preventDefault();
     const nameNewPlace = formNewPlace.elements['place-name'].value;
-	const linkNewPlace = formNewPlace.elements['link'].value;
+const linkNewPlace = formNewPlace.elements['link'].value;
     const newCard = {name: nameNewPlace, link: linkNewPlace};
     const newCardElement = createCard(newCard, deleteCard, likeCard)
     cardContainer.prepend(newCardElement);
