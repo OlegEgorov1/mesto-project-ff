@@ -70,7 +70,7 @@ function editPopupProfile (event) {
 function addNewCard (event) {
     event.preventDefault();
     const nameNewPlace = formNewPlace.elements['place-name'].value;
-	const linkNewPlace = formNewPlace.elements['link'].value;
+    const linkNewPlace = formNewPlace.elements['link'].value;
     const newCard = {name: nameNewPlace, link: linkNewPlace};
     const newCardElement = createCard(
 			newCard,
