@@ -1,5 +1,5 @@
 // Функция создания карточки
-export function createCard(card, deleteCard, likeCard, OpenImagePopup) {
+export function createCard(card, deleteCard, likeCard, openImagePopup) {
 	const template = document.querySelector('#card-template').content
 	const cardElement = template.querySelector('.card').cloneNode(true)
 	const cardImage = cardElement.querySelector('.card__image')
@@ -19,7 +19,7 @@ export function createCard(card, deleteCard, likeCard, OpenImagePopup) {
 
 	// Вешаем обработчик клина на картинку
 	cardImage.addEventListener('click', function (evt) {
-		OpenImagePopup(evt);
+		openImagePopup(evt);
 	})
 
 	return cardElement

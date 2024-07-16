@@ -15,12 +15,12 @@ export function closePopup(element) {
 // Функция закрытия модальных окон через Escape
 function closePopupEsc(event) {
 	if (event.key === 'Escape') {
-		const popups = document.querySelectorAll('.popup_is-opened')
-		popups.forEach(function (popup) {
-			closePopup(popup)
-		})
+		const openPopup = document.querySelector('.popup_is-opened')
+			if (openPopup) {
+				closePopup(openPopup);
+			}
+		}
 	}
-}
 
 // Функция закрытия модальных окон через Оверлей
 export function closePopupOverlay(event) {

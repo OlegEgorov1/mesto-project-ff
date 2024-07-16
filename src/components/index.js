@@ -54,12 +54,12 @@ const formNewPlace = document.forms['new-place'];
 
 // Добавление начальных карточек
 initialCards.forEach(function(elm){
-    const element = createCard(elm, deleteCard, likeCard)
+    const element = createCard(elm, deleteCard, likeCard, openImagePopup)
     cardContainer.append(element);
 })
 
 // Функция для отправки формы(Редактирование профиля)
-function submitForm (event) {
+function editPopupProfile (event) {
 	event.preventDefault();
 	profileTitle.textContent = nameInput.value;
 	profileDescription.textContent = descriptionInput.value;
@@ -72,26 +72,30 @@ function addNewCard (event) {
     const nameNewPlace = formNewPlace.elements['place-name'].value;
 	const linkNewPlace = formNewPlace.elements['link'].value;
     const newCard = {name: nameNewPlace, link: linkNewPlace};
-    const newCardElement = createCard(newCard, deleteCard, likeCard)
+    const newCardElement = createCard(
+			newCard,
+			deleteCard,
+			likeCard,
+			openImagePopup
+		)
     cardContainer.prepend(newCardElement);
     formNewPlace.reset();
     closePopup(popupNewCard);
 };
 
 // Функция открытия модального окна картинок
-function OpenImagePopup(event) {
-	if (event.target.tagName === 'IMG') {
+function openImagePopup(event) {
 		openPopup(popupType)
 		popupImage.src = event.target.src;
 		popupImage.alt = event.target.alt;
 		popupCaption.textContent = event.target.alt;
-	}
+	
 }
 
 // Вешаем обработчик событий для открытия первого модального окна 
 editButton.addEventListener('click', function(){
-    openPopup(popupEdit);
-    nameInput.value = profileTitle.textContent;
+	openPopup(popupEdit);
+	nameInput.value = profileTitle.textContent;
 	descriptionInput.value = profileDescription.textContent;
 })
 
@@ -99,9 +103,6 @@ editButton.addEventListener('click', function(){
 addButton.addEventListener('click', function(){
     openPopup(popupNewCard);
 })
-
-// Вешаем обработчик событий для увеличение картинок третьего модального окна 
-cardContainer.addEventListener('click', OpenImagePopup);
 
 // Вешаем обработчик клика для закрытия модальных окон
 closePopups.forEach(function(button){
@@ -119,7 +120,7 @@ popups.forEach(function(popup){
 })
 
 // Вешаем обработчик событий для редактирования профиля 
-formProfile.addEventListener('submit', submitForm);
+formProfile.addEventListener('submit', editPopupProfile);
    
 // Вешаем обработчик клика для добавления новых карточек
 formNewPlace.addEventListener('submit', addNewCard);
