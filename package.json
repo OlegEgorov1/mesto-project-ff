@@ -1,7 +1,7 @@
 {
-	"name": "yandex_praktikum",
+	"name": "mesto-project-ff",
 	"version": "0.0.1",
-	"description": "",
+	"description": "https://github.com/OlegEgorov1/mesto-project-ff.git",
 	"main": "index.js",
 	"scripts": {
 		"build": "webpack --mode production",
