@@ -1,7 +1,13 @@
+import 'core-js/stable';
 import {initialCards} from './cards.js';
 import {createCard, deleteCard, likeCard} from './card.js';
 import {openPopup, closePopup, closePopupOverlay} from './modal.js';
 import '../pages/index.css';
+import {
+	enableValidation,
+	clearValidation,
+	toggleButtonState,
+} from './validation.js'
 
 import add_icon from '../images/add-icon.svg'
 import avatar from '../images/avatar.jpg'
@@ -14,6 +20,7 @@ import edit_icon from '../images/edit-icon.svg'
 import like_active from '../images/like-active.svg'
 import like_inactive from '../images/like-inactive.svg'
 import logo from '../images/logo.svg'
+
 
 const images = [
 	// меняем исходные пути на переменные
@@ -79,6 +86,7 @@ function addNewCard (event) {
 		)
     cardContainer.prepend(newCardElement);
     formNewPlace.reset();
+	// clearValidation(formNewPlace, validationConfig);
     closePopup(popupNewCard);
 };
 
@@ -93,13 +101,22 @@ function openImagePopup(event) {
 
 // Вешаем обработчик событий для открытия первого модального окна 
 editButton.addEventListener('click', function(){
-	openPopup(popupEdit);
-	nameInput.value = profileTitle.textContent;
-	descriptionInput.value = profileDescription.textContent;
+	clearValidation(popupEdit.querySelector('.popup__form'), validationConfig)
+	openPopup(popupEdit)
+	nameInput.value = profileTitle.textContent
+	descriptionInput.value = profileDescription.textContent
+
+	// Проверка валидности полей и обновление состояния кнопки
+	const inputList = Array.from(
+		popupEdit.querySelectorAll(validationConfig.inputSelector))
+	const buttonElement = popupEdit.querySelector(
+		validationConfig.submitButtonSelector)
+	toggleButtonState(inputList, buttonElement, validationConfig.inactiveButtonClass)
 })
 
 // Вешаем обработчик событий для открытия второго модального окна
 addButton.addEventListener('click', function(){
+	clearValidation(popupNewCard.querySelector('.popup__form'), validationConfig);
     openPopup(popupNewCard);
 })
 
@@ -123,3 +140,103 @@ formProfile.addEventListener('submit', editPopupProfile);
    
 // Вешаем обработчик клика для добавления новых карточек
 formNewPlace.addEventListener('submit', addNewCard);
+
+// Включение валидации
+const validationConfig = {
+  formSelector: '.popup__form',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__button',
+  inactiveButtonClass: 'popup__button_disabled',
+  inputErrorClass: 'popup__input_type_error',
+  errorClass: 'popup__error_visible'
+}; 
+
+enableValidation(validationConfig);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Работа с API
+// 3. Загрузка информации о пользователе с сервера
+// Функция для подстановки данных в профиль
+function setUserInfo(user) {
+    const profileTitle = document.querySelector('.profile__title');
+    const profileDescription = document.querySelector('.profile__description');
+    const profileAvatar = document.querySelector('.profile__image')
+
+    profileTitle.textContent = user.name;
+    profileDescription.textContent = user.about;
+    profileAvatar.src = user.avatar;
+}
+
+// Функция для получения данных пользователя
+function getUserInfo() {
+    fetch('https://nomoreparties.co/v1/wff-cohort-19/users/me', {
+        method: 'GET',
+        headers: {
+            authorization: 'f128a874-2d4a-487f-bf4d-ef63e7d789fb',
+        },
+    })
+    .then(res => {
+        if (!res.ok) {
+            throw new Error(`Ошибка: ${res.status}`);
+        }
+        return res.json();
+    })
+    .then(data => {
+        setUserInfo(data);
+    })
+    .catch(err => {
+        console.error('Ошибка. Запрос не выполнен:', err);
+    });
+}
+
+getUserInfo();
+
+// 4. Загрузка карточек с сервера
+
+
+
+
+
+
+
+
+function loadingCards () {
+	fetch('https://nomoreparties.co/v1/wff-cohort-19/cards', {
+		method: 'Get',
+		headers: {
+			authorization: 'f128a874-2d4a-487f-bf4d-ef63e7d789fb',
+		},
+	})
+		.then(res => {
+			if (!res.ok) {
+				return Promise.reject(`Ошибка: ${res.status}`)
+			}
+			return res.json()
+		})
+		.then(data => {
+			createCard(data)
+		})
+		.catch(err => {
+			console.error('Ошибка. Запрос не выполнен:', err)
+		})
+}	
+
+loadingCards();

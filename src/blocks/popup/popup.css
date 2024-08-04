@@ -22,3 +22,33 @@
   right: 0;
   z-index: 10;
 }
+
+
+
+
+.popup__form-error {
+  display: block;
+  color: #FF0000;
+  font-size: 12px;
+  font-weight: 400;
+  height: 12px;
+  margin-top: 5px;
+}
+
+.form__input_type_error {
+  border-bottom-color: red;
+   
+}
+
+.form__input-error__active {
+    display: block;
+     
+}
+
+.popup__button_disabled {
+    color: #C4C4C4;
+    cursor: not-allowed;
+    background-color: white;
+    border: 1px solid #C4C4C4;;
+}
+
