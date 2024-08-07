@@ -16,8 +16,18 @@
   margin: 0;
 }
 
-.profile__edit-button:hover {
-  opacity: 0.6;
+.profile__avatar-edit-button {
+  position: absolute;
+  width: 26px;
+  height: 26px;
+  top: 47px;
+  left: 47px;
+  background: transparent url('../../../images/edit-icon.svg') center no-repeat;
+  background-size: 26px 26px;
+  border: none;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.3s ease;
 }
 
 @media screen and (max-width: 480px) {
@@ -27,3 +37,4 @@
     background-size: 8px 8px;
   }
 }
+
