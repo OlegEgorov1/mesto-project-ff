@@ -1,1 +1,1 @@
-https://github.com/OlegEgorov1/mesto-project-ff.git
+https://olegegorov1.github.io/mesto-project-ff/
