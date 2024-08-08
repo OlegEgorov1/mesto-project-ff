@@ -9,6 +9,13 @@
   margin: 0;
 }
 
+.profile__title, .profile__description {
+  white-space: normal;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
 @media screen and (max-width: 740px) {
   .profile__title {
     font-size: 32px;
