@@ -20,7 +20,7 @@ import {
 
 const cardContainer = document.querySelector('.places__list');
 const editButton = document.querySelector('.profile__edit-button');
-const avatarEditButton = document.querySelector('.profile__avatar-edit-button');
+const avatarContainer = document.querySelector('.profile__image-container');
 const popupEdit = document.querySelector('.popup_type_edit');
 const popupAvatar = document.querySelector('.popup_type_avatar');
 const popups = document.querySelectorAll('.popup');
@@ -211,7 +211,7 @@ editButton.addEventListener('click', function () {
 	);
 });
 // Обработчик открытия формы обновления аватара
-avatarEditButton.addEventListener('click', function () {
+avatarContainer.addEventListener('click', function () {
 	clearValidation(popupAvatar.querySelector('.popup__form'), validationConfig);
 	openPopup(popupAvatar);
 	avatarInput.value = '';
